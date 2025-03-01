@@ -15,7 +15,7 @@ Cette application web permet aux clients de signaler des problèmes et de demand
 - **Tri des tickets** : Les tickets peuvent être triés par priorité, logiciel ou statut.
 - **Recherche de tickets** : Les utilisateurs peuvent rechercher des tickets via des mots-clés.
 
-![Exemple de création de ticket](screenshots/creation-ticket.png)
+
 
 ### 💬 Attribution et Suivi des Tickets
 - **Assignation des tickets** : Les administrateurs peuvent assigner des tickets aux développeurs, avec la date d’assignation et l'identité de l'administrateur.
@@ -25,14 +25,14 @@ Cette application web permet aux clients de signaler des problèmes et de demand
   - Fermé
 - **Suivi pour les clients** : Les clients peuvent suivre l’évolution de leurs tickets via leur tableau de bord.
 
-![Tableau de bord client](screenshots/tableau-de-bord-client.png)
+
 
 ### 📊 Statistiques et Analyse
 - **Nombre de tickets** : Affichage du nombre total de tickets créés, assignés et résolus.
 - **Logiciels populaires** : Mise en avant des logiciels avec le plus de demandes.
 - **Développeurs les plus actifs** : Classement des développeurs en fonction du nombre de tickets résolus.
 
-![Statistiques des tickets](screenshots/statistiques-tickets.png)
+
 
 ### 🔐 Authentification et Rôles
 - **Client** : Peut créer des tickets et suivre leur état.
