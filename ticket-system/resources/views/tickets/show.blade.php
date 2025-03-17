@@ -8,6 +8,7 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body class="bg-gray-100">
     <div class="min-h-screen flex flex-col">
@@ -124,16 +125,30 @@
                     @endif
 
                     <div class="mb-6">
-                        <h4 class="text-lg font-semibold mb-2">💬 Commentaires</h4>
-                        <div class="space-y-4">
-                            @foreach($ticket->comments as $comment)
-                                <div class="bg-gray-50 border border-gray-300 p-4 rounded-lg">
-                                    <p class="mb-2 text-gray-700">{{ $comment->content }}</p>
-                                    <p class="text-sm text-gray-500">Par <strong>{{ $comment->user->name }}</strong> le {{ $comment->created_at->format('d/m/Y H:i') }}</p>
-                                </div>
-                            @endforeach
-                        </div>
-                    </div>
+    <h4 class="text-lg font-semibold mb-2">💬 Commentaires</h4>
+    <div class="space-y-4">
+        @foreach($ticket->comments as $comment)
+            <div class="bg-gray-50 border border-gray-300 p-4 rounded-lg flex justify-between items-start">
+                <div>
+                    <p class="mb-2 text-gray-700">{{ $comment->content }}</p>
+                    <p class="text-sm text-gray-500">
+                        Par <strong>{{ $comment->user->name }}</strong> le {{ $comment->created_at->format('d/m/Y H:i') }}
+                    </p>
+                </div>
+                @if(auth()->user()->id === $comment->user_id || auth()->user()->isAdmin()) 
+                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer ce commentaire ?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="text-red-500 hover:text-red-700">
+                            <i class="fas fa-trash-alt"></i> <!-- Icône FontAwesome -->
+                        </button>
+                    </form>
+                @endif
+            </div>
+        @endforeach
+    </div>
+</div>
+
 
                     <form action="{{ route('tickets.comments.store', $ticket) }}" method="POST">
                         @csrf
