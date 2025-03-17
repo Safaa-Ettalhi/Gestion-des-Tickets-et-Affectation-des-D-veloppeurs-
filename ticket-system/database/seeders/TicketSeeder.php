@@ -11,16 +11,16 @@ class TicketSeeder extends Seeder
 {
     public function run()
     {
-        // Créer quelques utilisateurs
+      
         $admin = User::factory()->create(['email' => 'admin@example.com', 'role' => 'admin']);
         $developer = User::factory()->create(['email' => 'developer@example.com', 'role' => 'developer']);
         $user = User::factory()->create(['email' => 'user@example.com', 'role' => 'user']);
 
-        // Créer quelques logiciels
+     
         $software1 = Software::create(['name' => 'Logiciel A']);
         $software2 = Software::create(['name' => 'Logiciel B']);
 
-        // Créer quelques tickets
+
         Ticket::create([
             'title' => 'Problème de connexion',
             'description' => 'Je ne peux pas me connecter à mon compte',
