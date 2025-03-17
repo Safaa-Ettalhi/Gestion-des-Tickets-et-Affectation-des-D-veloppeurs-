@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     // Routes pour les tickets
     Route::resource('tickets', TicketController::class);
     Route::post('/tickets/{ticket}/comments', [TicketController::class, 'storeComment'])->name('tickets.comments.store');
+    Route::delete('/comments/{comment}', [TicketController::class, 'destroyComment'])->name('comments.destroy');
     Route::get('/tickets/attachment/{attachment}', [TicketController::class, 'downloadAttachment'])->name('tickets.attachment.download');
     Route::get('/tickets/{ticket}/assign', [TicketController::class, 'showAssignForm'])->name('tickets.assign');
     Route::post('/tickets/{ticket}/assign', [TicketController::class, 'assign'])->name('tickets.assign');
