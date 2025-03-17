@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use App\Models\User;
 use App\Models\Software;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -64,7 +65,7 @@ class TicketController extends Controller
 
     $ticket->assigned_to = $validatedData['developer_id'];
     $ticket->assigned_by = Auth::id();
-    $ticket->assigned_at = now(); // Ceci retourne un objet Carbon, qui est une extension de DateTime
+    $ticket->assigned_at = now(); 
     $ticket->save();
 
     return redirect()->route('dashboard')->with('success', 'Ticket assigné avec succès.');
@@ -75,6 +76,21 @@ class TicketController extends Controller
         Gate::authorize('updateStatus', $ticket);
         return view('tickets.update-status', compact('ticket'));
     }
+public function storeComment(Request $request, Ticket $ticket)
+{
+    $validatedData = $request->validate([
+        'content' => 'required|string|max:1000',
+    ]);
+
+    // Création du commentaire
+    $comment = new Comment();
+    $comment->content = $validatedData['content'];
+    $comment->ticket_id = $ticket->id;
+    $comment->user_id = Auth::id();
+    $comment->save();
+
+    return redirect()->route('tickets.show', $ticket)->with('success', 'Commentaire ajouté avec succès.');
+}
 
     public function updateStatus(Request $request, Ticket $ticket)
 {
@@ -93,4 +109,10 @@ public function destroy(Ticket $ticket)
         $ticket->delete();
         return redirect()->route('dashboard')->with('success', 'Logiciel supprimé avec succès.');
     }  
+
+    public function destroyComment(Comment $comment)
+    {
+        $comment->delete();
+        return redirect()->back()->with('success', 'Commentaire supprimé avec succès.');
+    }
 }
